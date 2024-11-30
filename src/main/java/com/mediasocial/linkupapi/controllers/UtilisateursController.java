@@ -8,10 +8,14 @@ package com.mediasocial.linkupapi.controllers;
  *
  * @author NATH-CHRIST
  */
-
 import com.mediasocial.linkupapi.security.LoginRequest;
 import com.mediasocial.linkupapi.services.dto.UtilisateurDto;
 import com.mediasocial.linkupapi.services.impl.UtilisateursServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,26 +42,25 @@ public class UtilisateursController {
 
     @PostMapping("/inscription")
     public ResponseEntity<UtilisateurDto> inscrireUtilisateur(@RequestBody UtilisateurDto utilisateurDto) {
+        utilisateurDto.setDateInscription(new Date());
         UtilisateurDto nouveauUtilisateur = utilisateursService.inscrireUtilisateur(utilisateurDto);
         return new ResponseEntity<>(nouveauUtilisateur, HttpStatus.CREATED);
     }
 
-
-        @PostMapping("/auth/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) { 
+    @PostMapping("/auth/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             // Authentifier l'utilisateur
             final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
 
-            // Si l'authentification réussit, générer le token JWT
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            System.out.println("userdetails"+userDetails.toString());
+            System.out.println("userdetails" + userDetails.toString());
+
             
-            // Retourner le token dans la réponse
-            return ResponseEntity.ok(authentication);
+            return ResponseEntity.ok("Utilisateur" + loginRequest.getEmail() + "conncecté avec succès");
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Identifiants incorrects");
         } catch (Exception e) {
@@ -66,9 +69,24 @@ public class UtilisateursController {
     }
 
     @PostMapping("/deconnexion")
-    public ResponseEntity<Void> deconnecterUtilisateur() {
-        // Logique de déconnexion à implémenter (par exemple, invalider le token)
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deconnecterUtilisateur(HttpServletRequest request, HttpServletResponse response) {
+        // Invalider la session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        // Effacer le contexte de sécurité
+        SecurityContextHolder.clearContext();
+
+        // Supprimer le cookie de session côté client (si vous utilisez des cookies)
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("Déconnexion réussie");
     }
 
     @GetMapping("/{id}")
@@ -86,8 +104,8 @@ public class UtilisateursController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> supprimerUtilisateur(@PathVariable Integer id) {
+    public ResponseEntity<String> supprimerUtilisateur(@PathVariable Integer id) {
         utilisateursService.supprimerUtilisateur(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Élément avec l'ID " + id + " supprimé avec succès");
     }
 }

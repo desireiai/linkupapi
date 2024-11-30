@@ -6,10 +6,10 @@ package com.mediasocial.linkupapi.services.impl;
 
 import com.mediasocial.linkupapi.entities.Utilisateurs;
 import com.mediasocial.linkupapi.mappers.UtilisateurMapper;
-import com.mediasocial.linkupapi.repositories.BaseRepository;
 import com.mediasocial.linkupapi.repositories.UtilisateursRepository;
 import com.mediasocial.linkupapi.services.UtilisateursService;
 import com.mediasocial.linkupapi.services.dto.UtilisateurDto;
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +39,7 @@ public class UtilisateursServiceImpl extends BaseServiceImpl<Utilisateurs, Integ
     public UtilisateurDto inscrireUtilisateur(UtilisateurDto utilisateurDTO) {
         Utilisateurs utilisateur = utilisateursMapper.utilisateurDtoToUtilisateur(utilisateurDTO);
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateurDTO.getMotDePasse()));
+        utilisateur.setDateInscription(new Date());
         Utilisateurs savedUtilisateur = utilisateursRepository.save(utilisateur);
         return utilisateursMapper.utilisateurToUtilisateurDto(savedUtilisateur);
     }
@@ -65,8 +66,10 @@ public class UtilisateursServiceImpl extends BaseServiceImpl<Utilisateurs, Integ
                     Utilisateurs updatedUtilisateur = utilisateursMapper.utilisateurDtoToUtilisateur(utilisateurDTO);
                     // Ne pas écraser le mot de passe existant si un nouveau n'est pas fourni
                     if (utilisateurDTO.getMotDePasse() != null && !utilisateurDTO.getMotDePasse().isEmpty()) {
+                        updatedUtilisateur.setDateInscription(new Date());
                         updatedUtilisateur.setMotDePasse(passwordEncoder.encode(utilisateurDTO.getMotDePasse()));
                     } else {
+                        updatedUtilisateur.setDateInscription(new Date());
                         updatedUtilisateur.setMotDePasse(existingUtilisateur.getMotDePasse());
                     }
                     updatedUtilisateur = utilisateursRepository.save(updatedUtilisateur);

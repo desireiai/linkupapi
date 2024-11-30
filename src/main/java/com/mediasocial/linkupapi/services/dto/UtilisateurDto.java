@@ -1,6 +1,6 @@
 package com.mediasocial.linkupapi.services.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class UtilisateurDto {
     private Integer id;
@@ -9,13 +9,13 @@ public class UtilisateurDto {
     private String bio;
      private String motDePasse;
     
-    private LocalDateTime dateInscription;
+    private Date dateInscription;
     
 
     public UtilisateurDto() {
     }
 
-    public UtilisateurDto(String nom, String email, String bio, LocalDateTime dateInscription) {
+    public UtilisateurDto(String nom, String email, String bio, Date dateInscription) {
         this.nom = nom;
         this.email = email;
         this.bio = bio;
@@ -64,12 +64,13 @@ public class UtilisateurDto {
         this.bio = bio;
     }
 
-    public LocalDateTime getDateInscription() {
+    public Date getDateInscription() {
         return dateInscription;
     }
 
-    public void setDateInscription(LocalDateTime dateInscription) {
+    public void setDateInscription(Date dateInscription) {
         this.dateInscription = dateInscription;
     }
+
     
 }
