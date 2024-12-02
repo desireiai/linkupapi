@@ -22,7 +22,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 @EnableCaching
 public class Linkupapi {
-
     public static void main(String[] args) {
         SpringApplication.run(Linkupapi.class, args);
     }

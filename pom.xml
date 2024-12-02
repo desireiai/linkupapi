@@ -132,7 +132,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mediasocial.linkupapi.Linkupapi</exec.mainClass>
         <RESOURCE_GROUP>DefaultResourceGroup-PAR</RESOURCE_GROUP>
-        <APP_NAME>linkupapisupinfo</APP_NAME>
+        <APP_NAME>linkupapidesa</APP_NAME>
         <REGION>France Central</REGION>
     </properties>
 </project>
