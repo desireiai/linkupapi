@@ -123,6 +123,21 @@
                 </deployment>
             </configuration>
         </plugin>
+
+        <!-- Ajoutez ce nouveau plugin pour gérer le manifest new -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>com.mediasocial.linkupapi.Linkupapi</mainClass>
+                        <addClasspath>true</addClasspath>git 
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
     </plugins>
 </build>
     
