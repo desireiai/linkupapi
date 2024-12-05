@@ -5,7 +5,7 @@
 package com.mediasocial.linkupapi.services.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -16,12 +16,12 @@ public class CommentaireDto implements Serializable{
     private Integer publicationId;
     private Integer utilisateurId;
     private String contenu;
-    private LocalDateTime dateCreation;
+    private Date dateCreation;
 
     public CommentaireDto() {
     }
 
-    public CommentaireDto(Integer publicationId, Integer utilisateurId, String contenu, LocalDateTime dateCreation) {
+    public CommentaireDto(Integer publicationId, Integer utilisateurId, String contenu, Date dateCreation) {
         this.publicationId = publicationId;
         this.utilisateurId = utilisateurId;
         this.contenu = contenu;
@@ -69,11 +69,11 @@ public class CommentaireDto implements Serializable{
         this.contenu = contenu;
     }
 
-    public LocalDateTime getDateCreation() {
+    public Date getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDateTime dateCreation) {
+    public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
     

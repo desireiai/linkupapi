@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entity-mappings v="6.1.0" status="GENERATED" persistenceUnitName="DEFAULT_PU" sm="false" id="_17333496567143" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <entity abs="false" class="Utilisateurs" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567174">
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" name="nom" id="_173334965680411">
+                <column name="nom" unique="false" nullable="false" insertable="true" updatable="true" table="utilisateurs" length="50"/>
+            </basic>
+            <basic optional="false" attribute-type="String" v="true" name="email" id="_173334965680512">
+                <column name="email" unique="false" nullable="false" insertable="true" updatable="true" table="utilisateurs" length="100"/>
+            </basic>
+            <basic optional="false" attribute-type="String" v="true" name="motDePasse" id="_173334965680513">
+                <column name="mot_de_passe" unique="false" nullable="false" insertable="true" updatable="true" table="utilisateurs" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="String" v="true" name="bio" id="_173334965680514">
+                <column name="bio" unique="false" nullable="true" insertable="true" updatable="true" table="utilisateurs" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateInscription" id="_173334965680515">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_inscription" unique="false" nullable="true" insertable="true" updatable="true" table="utilisateurs"/>
+            </basic>
+            <one-to-many own="false" connected-entity-id="_17333496567955" connected-attribute-id="_173334965680724" v="true" name="abonnementsCollection" id="_173334965680516"/>
+            <one-to-many own="false" connected-entity-id="_17333496567955" connected-attribute-id="_173334965680725" v="true" name="abonnementsCollection1" id="_173334965680517"/>
+            <one-to-many own="false" connected-entity-id="_17333496567956" connected-attribute-id="_173334965680830" v="true" name="commentairesCollection" id="_173334965680518"/>
+            <one-to-many own="false" connected-entity-id="_17333496567957" connected-attribute-id="_173334965680936" v="true" name="notificationsCollection" id="_173334965680519"/>
+            <one-to-many own="false" connected-entity-id="_17333496567958" connected-attribute-id="_173334965680940" v="true" name="likesCollection" id="_173334965680520"/>
+            <one-to-many own="false" connected-entity-id="_17333496567959" connected-attribute-id="_173334965681047" v="true" name="publicationsCollection" id="_173334965680621"/>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965680310">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="utilisateurs"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="utilisateurs">
+            <unique-constraint>
+                <column-name>email</column-name>
+            </unique-constraint>
+        </table>
+    </entity>
+    <entity abs="false" class="Abonnements" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567955">
+        <attributes>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateAbonnement" id="_173334965680623">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_abonnement" unique="false" nullable="true" insertable="true" updatable="true" table="abonnements"/>
+            </basic>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680516" v="true" name="abonneId" id="_173334965680724">
+                <join-column name="ABONNE_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680517" v="true" name="abonnementId" id="_173334965680725">
+                <join-column name="ABONNEMENT_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965680622">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="abonnements"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="abonnements"/>
+    </entity>
+    <entity abs="false" class="Commentaires" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567956">
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" name="contenu" id="_173334965680827">
+                <column name="contenu" unique="false" nullable="false" insertable="true" updatable="true" table="commentaires" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateCreation" id="_173334965680828">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_creation" unique="false" nullable="true" insertable="true" updatable="true" table="commentaires"/>
+            </basic>
+            <many-to-one connected-entity-id="_17333496567959" connected-attribute-id="_173334965681045" v="true" name="publicationId" id="_173334965680829">
+                <join-column name="PUBLICATION_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680518" v="true" name="utilisateurId" id="_173334965680830">
+                <join-column name="UTILISATEUR_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965680826">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="commentaires"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="commentaires"/>
+    </entity>
+    <entity abs="false" class="Notifications" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567957">
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" name="type" id="_173334965680832">
+                <column name="type" unique="false" nullable="false" insertable="true" updatable="true" table="notifications" length="50"/>
+            </basic>
+            <basic optional="false" attribute-type="String" v="true" name="contenu" id="_173334965680833">
+                <column name="contenu" unique="false" nullable="false" insertable="true" updatable="true" table="notifications" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="Boolean" v="true" name="lu" id="_173334965680834">
+                <column name="lu" unique="false" nullable="true" insertable="true" updatable="true" table="notifications"/>
+            </basic>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateCreation" id="_173334965680935">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_creation" unique="false" nullable="true" insertable="true" updatable="true" table="notifications"/>
+            </basic>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680519" v="true" name="utilisateurId" id="_173334965680936">
+                <join-column name="UTILISATEUR_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965680831">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="notifications"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="notifications"/>
+    </entity>
+    <entity abs="false" class="Likes" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567958">
+        <attributes>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateCreation" id="_173334965680938">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_creation" unique="false" nullable="true" insertable="true" updatable="true" table="likes"/>
+            </basic>
+            <many-to-one connected-entity-id="_17333496567959" connected-attribute-id="_173334965681046" v="true" name="publicationId" id="_173334965680939">
+                <join-column name="PUBLICATION_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680520" v="true" name="utilisateurId" id="_173334965680940">
+                <join-column name="UTILISATEUR_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965680937">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="likes"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="likes"/>
+    </entity>
+    <entity abs="false" class="Publications" v="true" xre="false" m="false" rootElement="_17333496567143" id="_17333496567959">
+        <attributes>
+            <basic optional="false" attribute-type="String" v="true" name="contenu" id="_173334965681042">
+                <column name="contenu" unique="false" nullable="false" insertable="true" updatable="true" table="publications" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="String" v="true" name="mediaUrl" id="_173334965681043">
+                <column name="media_url" unique="false" nullable="true" insertable="true" updatable="true" table="publications" length="255"/>
+            </basic>
+            <basic optional="true" attribute-type="java.util.Date" v="true" name="dateCreation" id="_173334965681044">
+                <temporal>TIMESTAMP</temporal>
+                <column name="date_creation" unique="false" nullable="true" insertable="true" updatable="true" table="publications"/>
+            </basic>
+            <many-to-one connected-entity-id="_17333496567174" connected-attribute-id="_173334965680621" v="true" name="utilisateurId" id="_173334965681047">
+                <join-column name="UTILISATEUR_ID" rc="ID" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </many-to-one>
+            <one-to-many own="false" connected-entity-id="_17333496567956" connected-attribute-id="_173334965680829" v="true" name="commentairesCollection" id="_173334965681045"/>
+            <one-to-many own="false" connected-entity-id="_17333496567958" connected-attribute-id="_173334965680939" v="true" name="likesCollection" id="_173334965681046"/>
+            <id attribute-type="Integer" v="true" name="id" id="_173334965681041">
+                <column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="publications"/>
+                <generated-value strategy="DEFAULT"/>
+            </id>
+        </attributes>
+        <table name="publications"/>
+    </entity>
+</entity-mappings>

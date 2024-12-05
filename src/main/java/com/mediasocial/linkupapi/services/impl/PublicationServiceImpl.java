@@ -7,12 +7,11 @@ package com.mediasocial.linkupapi.services.impl;
 import com.mediasocial.linkupapi.entities.Publications;
 import com.mediasocial.linkupapi.entities.Utilisateurs;
 import com.mediasocial.linkupapi.mappers.PublicationMapper;
-import com.mediasocial.linkupapi.repositories.BaseRepository;
 import com.mediasocial.linkupapi.repositories.PublicationsRepository;
 import com.mediasocial.linkupapi.repositories.UtilisateursRepository;
 import com.mediasocial.linkupapi.services.PublicationsService;
 import com.mediasocial.linkupapi.services.dto.PublicationDto;
-import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,10 @@ public class PublicationServiceImpl extends BaseServiceImpl<Publications, Intege
 
 
     public PublicationDto creerPublication(PublicationDto publicationDTO) {
+        Optional<Utilisateurs> utilisateur = utilisateursRepository.findById(publicationDTO.getUtilisateurId());
         Publications publication = publicationMapper.publicationDtoToPublication(publicationDTO);
+        publication.setUtilisateurId(utilisateur.get());
+        publication.setDateCreation(new Date());
         Publications savedPublication = publicationRepository.save(publication);
         return publicationMapper.publicationToPublicationDto(savedPublication);
     }
