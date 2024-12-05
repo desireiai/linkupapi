@@ -36,13 +36,6 @@ public class UtilisateursServiceImpl extends BaseServiceImpl<Utilisateurs, Integ
 
   
 
-    public UtilisateurDto inscrireUtilisateur(UtilisateurDto utilisateurDTO) {
-        Utilisateurs utilisateur = utilisateursMapper.utilisateurDtoToUtilisateur(utilisateurDTO);
-        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateurDTO.getMotDePasse()));
-        utilisateur.setDateInscription(new Date());
-        Utilisateurs savedUtilisateur = utilisateursRepository.save(utilisateur);
-        return utilisateursMapper.utilisateurToUtilisateurDto(savedUtilisateur);
-    }
 
     public UtilisateurDto verifiercredentialsUtilisateur(String email, String motDePasse) {
         Utilisateurs utilisateur = utilisateursRepository.findByEmail(email)
@@ -54,6 +47,15 @@ public class UtilisateursServiceImpl extends BaseServiceImpl<Utilisateurs, Integ
             throw new RuntimeException("Mot de passe incorrect");
         }
     }
+    
+        public UtilisateurDto inscrireUtilisateur(UtilisateurDto utilisateurDTO) {
+        Utilisateurs utilisateur = utilisateursMapper.utilisateurDtoToUtilisateur(utilisateurDTO);
+        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateurDTO.getMotDePasse()));
+        utilisateur.setDateInscription(new Date());
+        Utilisateurs savedUtilisateur = utilisateursRepository.save(utilisateur);
+        return utilisateursMapper.utilisateurToUtilisateurDto(savedUtilisateur);
+    }
+
 
     public Optional<UtilisateurDto> obtenirUtilisateur(Integer id) {
         return utilisateursRepository.findById(id).map(utilisateursMapper::utilisateurToUtilisateurDto);

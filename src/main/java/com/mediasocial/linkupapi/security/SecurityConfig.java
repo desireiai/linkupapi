@@ -54,9 +54,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login").permitAll() // Autorise l'accès public à la route de connexion
                 .requestMatchers("/api/utilisateurs/**").authenticated() // Nécessite une authentification via API Key
-                .anyRequest().authenticated()) // Toutes les autres requêtes nécessitent une authentification via JWT
+                .anyRequest().authenticated()) 
                 .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter.class); // Ajout du filtre API Key 
-               // .addFilterBefore(jwtRequestFilter, ApiKeyAuthFilter.class); // Ajout du filtre JWT
                 return http.build();
     }
 

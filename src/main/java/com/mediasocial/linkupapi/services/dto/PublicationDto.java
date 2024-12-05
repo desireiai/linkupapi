@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class PublicationDto implements Serializable{
     private Integer id;
-    private Long utilisateurId;
+    private Integer utilisateurId;
     private String contenu;
     private String mediaUrl;
     private Date dateCreation;
@@ -21,7 +21,7 @@ public class PublicationDto implements Serializable{
     public PublicationDto() {
     }
 
-    public PublicationDto(Long utilisateurId, String contenu, String mediaUrl, Date dateCreation) {
+    public PublicationDto(Integer utilisateurId, String contenu, String mediaUrl, Date dateCreation) {
         this.utilisateurId = utilisateurId;
         this.contenu = contenu;
         this.mediaUrl = mediaUrl;
@@ -38,11 +38,11 @@ public class PublicationDto implements Serializable{
         this.id = id;
     }
 
-    public Long getUtilisateurId() {
+    public Integer getUtilisateurId() {
         return utilisateurId;
     }
 
-    public void setUtilisateurId(Long utilisateurId) {
+    public void setUtilisateurId(Integer utilisateurId) {
         this.utilisateurId = utilisateurId;
     }
 
