@@ -52,6 +52,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/welcome").permitAll() // Autorise l'accès public à la racine et à /welcome
                 .requestMatchers("/auth/login").permitAll() // Autorise l'accès public à la route de connexion
                 .requestMatchers("/api/utilisateurs/**").authenticated() // Nécessite une authentification via API Key
                 .anyRequest().authenticated()) 
